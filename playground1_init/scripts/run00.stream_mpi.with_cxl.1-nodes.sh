@@ -22,12 +22,11 @@ set -x
 mpirun -x BADSSERVER=twosisters2:50505 \
   --hostfile "${hostfile}" \
   --map-by ppr:1:node \
-  -np 2 \
+  -np 1 \
+  -x CXL_DAX_PATH="/dev/dax0.1" \
   -x CXL_MEASURE_LATENCY=1 \
   -x LD_PRELOAD="${cxl_lib_file}" \
   "${binary}"
 } 2>&1 | tee -a output.with_cxl.log
 set +x
 #tail -n 1 output.with_cxl.log >> output.with_cxl.realtime.log
-
-#   -x CXL_DAX_PATH="/dev/dax0.1" \
